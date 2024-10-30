@@ -14,7 +14,7 @@ Contents
 
 Quick start
 -----------
-1. Install "django-gdpr-manager" from pip 
+1. Install "hubble-django-gdpr-manager" from pip 
 
 1. Add "gdpr_manager" to your INSTALLED_APPS setting like this:
     ```
