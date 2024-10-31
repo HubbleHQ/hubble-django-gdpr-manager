@@ -1,0 +1,67 @@
+// If you want to run as a non-root user in the container, see .devcontainer/docker-compose.yml.
+{
+  "name": "django-gdpr-manager",
+  // Update the 'dockerComposeFile' list if you have more compose files or use different names.
+  // The .devcontainer/docker-compose.yml file contains any overrides you need/want to make.
+  "build": {
+    // Sets the run context to one level up instead of the .devcontainer folder.
+    "context": "..",
+    // Look for the Dockerfile one level up, too
+    "dockerfile": "../Dockerfile",
+    // the deps-dev  will meet all the requirements for VS Code
+    "target": "deps-dev"
+  },
+  // The optional 'workspaceFolder' property is the path VS Code should open by default when
+  // connected. This is typically a file mount in .devcontainer/docker-compose.yml
+  "workspaceFolder": "/src",
+  "workspaceMount": "source=${localWorkspaceFolder}/,target=/src,type=bind",
+  "customizations": {
+    "vscode": {
+      // Set *default* container specific settings.json values on container create.
+      "settings": {
+        "python.pythonPath": "/usr/local/bin/python",
+        "python.linting.enabled": true,
+        "python.formatting.blackPath": "/usr/local/bin/black",
+        "python.formatting.provider": "black",
+        "python.linting.flake8Path": "/usr/local/bin/flake8",
+        "python.linting.flake8Enabled": true,
+        "python.linting.pycodestylePath": "/usr/localwhich /bin/pycodestyle",
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "editor.codeActionsOnSave": {
+          "source.fixAll.tslint": true,
+          "source.fixAll": true
+        },
+        "editor.formatOnSave": true,
+        "python.testing.unittestArgs": [
+          "-v",
+          "-s",
+          ".",
+          "-p",
+          "test*.py"
+        ]
+      },
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": [
+        "ms-python.python",
+        "EditorConfig.EditorConfig",
+        "eamodio.gitlens",
+        "ms-vsliveshare.vsliveshare",
+        "ms-vscode.sublime-keybindings",
+        "visualstudioexptteam.vscodeintellicode",
+        "streetsidesoftware.code-spell-checker",
+        "donjayamanne.githistory",
+        "ms-python.black-formatter"
+      ]
+    }
+  }
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+  // Uncomment the next line if you want start specific services in your Docker Compose config.
+  // "runServices": [],
+  // Uncomment the next line if you want to keep your containers running after VS Code shuts down.
+  // "shutdownAction": "none",
+  // Uncomment the next line to run commands after the container is created - for example installing curl.
+  // "postCreateCommand": "apt-get update && apt-get install -y curl",
+  // Uncomment to connect as a non-root user if you've added one. See https://aka.ms/vscode-remote/containers/non-root.
+  // "remoteUser": "vscode"
+}
