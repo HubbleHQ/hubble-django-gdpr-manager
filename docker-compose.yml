@@ -1,0 +1,12 @@
+services:
+    dev:
+        hostname: django-gdpr-manager
+        build:
+            target: dev # NOTE: this is the "stage" in the Dockerfile
+            context: .
+        stdin_open: true
+        tty: true
+        volumes:
+            - .:/src
+            # Mount empty volume in venv to ignore
+            - /src/venv/
