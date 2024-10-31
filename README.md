@@ -10,6 +10,7 @@ Contents
 - [Example](#example)
 - [Settings](#settings)
 - [Contributing Guide](#contributing-guide)
+    - [Important note on adding packages](#important-note-on-adding-packages)
     - [Setup within another project](#setup-within-another-project)
 
 Quick start
@@ -94,7 +95,12 @@ Contributing Guide
 -----------
 The best way to work on this package is to import it into another django project so you can play with the two together. It's much easier.
 
-**Right now this project does not have working tests, that is something that needs setting up.**
+### Important note on adding packages
+The files in the Pipfile are not dependancies for the package.
+[To add dependancies you need to add them into the setup.cfg.](
+https://setuptools.pypa.io/en/latest/userguide/dependency_management.html#declaring-required-dependency)
+Make sure to follow the `setup.cfg` tab, not the `.toml` one, it will break and get angry.
+
 
 ### Setup within another project
 1. Go to the project you want to import the package into for testing.
