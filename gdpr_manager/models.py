@@ -14,6 +14,7 @@ class GDPRModel:
     def gdpr_search(cls, **search_data):
         query = Q()
         results = []
+        has_warning = False
 
         for key, value in search_data.items():
             search_fields = getattr(cls.GDPRMeta, f"search_{key}_fields")
@@ -27,4 +28,10 @@ class GDPRModel:
         if len(query):
             results = cls.objects.filter(query)
 
-        return results
+        if len(results):
+            has_warning = getattr(
+                cls.GDPRMeta,
+                "show_warning_if_found"
+            )
+            
+        return (results, has_warning)

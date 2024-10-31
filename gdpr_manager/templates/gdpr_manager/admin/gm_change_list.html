@@ -23,6 +23,10 @@
     #changelist table td.group-head {
         padding: 1em 0 0 0;
     }
+
+    #toolbar {
+        margin-bottom: 1em;
+    }
 </style>
 {% endblock %}
 
@@ -67,6 +71,14 @@
                 {% endif %}
                 {% endfor %}
 
+                {% if warnings %}
+                <p class="errornote">
+                    !!! Do not delete or anonymise any informatiom until discussed further !!!<br/>
+                    This user is showing up in {{ warnings|length }} table(s) that impact how we handle GDPR requests, 
+                    please bring this up to whoever is managing the GDPR request.
+                </p>
+                {% endif %}
+
                 {% for group in results %}
                 {% if forloop.first %}
                 <table>
@@ -75,6 +87,11 @@
 
                         <tr>
                             <td colspan="2" class="group-head">
+                                {% if group.has_warning %}
+                                <p class="errornote">
+                                    The user showing in {{ group.app_label }}: {{ group.name }} impacts how we handle GDPR requests.
+                                </p>
+                                {% endif %}
                                 <h2>{{ group.app_label }}: {{ group.name }}</h2>
                             </td>
                         </tr>

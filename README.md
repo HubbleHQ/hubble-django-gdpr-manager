@@ -28,7 +28,7 @@ Quick start
 
 Example
 -----------
-```
+```python
 from gdpr_manager.models import GDPRModel
 
 class ExampleModel(models.Model, GDPRModel):
@@ -37,6 +37,12 @@ class ExampleModel(models.Model, GDPRModel):
         fields=['Any model fields containing personal data']
         search_user_id_fields=['model fields that can be used to search by User ID']
         search_email_fields=['model fields that can be used to search by Email']
+        """
+        Will show a warning that the GDPR request needs to be treated 
+        differently & to talk to the person managing the request
+        if data is found in this table
+        """
+        show_warning_if_found=[True|False optional] 
     ...
 ```
 

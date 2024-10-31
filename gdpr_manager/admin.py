@@ -53,6 +53,7 @@ class GDPRManagerAdmin(admin.ModelAdmin):
         """
         form = GDPRManagerSearchForm(request.POST or None)
         results = None
+        warnings = None
 
         if form.is_valid():
             search_data = {}
@@ -61,7 +62,7 @@ class GDPRManagerAdmin(admin.ModelAdmin):
 
             raw_results = gdpr_registry.search(**search_data)
 
-            results = (
+            results = list((
                 {
                     "model": model,
                     "results": model_results,
@@ -74,14 +75,31 @@ class GDPRManagerAdmin(admin.ModelAdmin):
                     "url_change_name": "admin:{}_{}_changelist".format(
                         model._meta.app_label, model._meta.model_name
                     ),
+                    "has_warning": has_warning
                 }
-                for model, model_results in raw_results
-            )
+                for model, model_results, has_warning in raw_results
+            ))
+
+            warnings = list((
+                {
+                    "app_label": result["app_label"],
+                    "name": result["name"]
+                }
+                for result in results
+                if result["has_warning"]
+            ))
+
+            print(results)
 
         return render(
             request,
             self.change_list_template,
-            {"title": "GDPR Manager", "form": form, "results": results},
+            {
+                "title": "GDPR Manager",
+                "form": form,
+                "results": results,
+                "warnings": warnings
+            },
         )
 
 

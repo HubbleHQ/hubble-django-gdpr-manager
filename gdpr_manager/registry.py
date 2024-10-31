@@ -15,9 +15,9 @@ class Registry(object):
         """
         full_results = []
         for key, model in self.models.items():
-            results = model.gdpr_search(**search_data)
+            (results, has_warning) = model.gdpr_search(**search_data)
             if results:
-                full_results.append((model, results))
+                full_results.append((model, results, has_warning))
 
         return full_results
 

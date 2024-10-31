@@ -31,7 +31,13 @@ def gdpr_meta_example(missing_keys=None, model_name="ExampleModel"):
         "    ...\n"
         "    class GDPRMeta:\n"
         "        fields=['Any model fields containing personal data']\n"
-        f"{exception_key_example_string}"
+        f"{exception_key_example_string}\n"
+        "        \"\"\"\n"
+        "        Will show a warning that the GDPR request needs to be treated\n"
+        "        differently & to talk to the person managing the request\n"
+        "        if data is found in this table\n"
+        "        \"\"\"\n"
+        "        show_warning_if_found=[True|False optional]"
     )
 
     return missing_keys_example if missing_keys else full_example
