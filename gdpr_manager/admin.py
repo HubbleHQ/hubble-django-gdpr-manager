@@ -89,8 +89,6 @@ class GDPRManagerAdmin(admin.ModelAdmin):
                 if result["has_warning"]
             ))
 
-            print(results)
-
         return render(
             request,
             self.change_list_template,
