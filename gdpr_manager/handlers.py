@@ -36,9 +36,7 @@ def register_gdpr_model(sender, **kwargs):
     # 3rd party apps we want to exclude from the model require.
     app_name = sender.__module__.split(".")[0]
 
-    if not settings.GDPR_MANAGER_REQUIRE_CHECK or (
-        app_name in settings.GDPR_MANAGER_EXCLUDE
-    ):
+    if app_name in settings.GDPR_MANAGER_EXCLUDE:
         return
 
     is_subclass = issubclass(sender, GDPRModel)
@@ -47,7 +45,7 @@ def register_gdpr_model(sender, **kwargs):
     if is_subclass and has_gdpr_meta:
         check_search_types(sender)
         gdpr_registry.register(sender)
-    else:
+    elif settings.GDPR_MANAGER_REQUIRE_CHECK:
         raise Exception(
             f"\033[1mModel {sender.__name__} does not have GDPR Manager setup correctly or at all\033[0m\n"
             f"module: {sender.__module__}\n"
