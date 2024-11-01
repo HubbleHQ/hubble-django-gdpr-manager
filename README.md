@@ -15,7 +15,7 @@ Contents
 
 Quick start
 -----------
-1. Install "hubble-django-gdpr-manager" from pip 
+1. Install "hubble-django-gdpr-manager" from pip
 
 1. Add "gdpr_manager" to your INSTALLED_APPS setting like this:
     ```
@@ -39,11 +39,11 @@ class ExampleModel(models.Model, GDPRModel):
         search_user_id_fields=['model fields that can be used to search by User ID']
         search_email_fields=['model fields that can be used to search by Email']
         """
-        Will show a warning that the GDPR request needs to be treated 
+        Will show a warning that the GDPR request needs to be treated
         differently & to talk to the person managing the request
         if data is found in this table
         """
-        show_warning_if_found=[True|False optional] 
+        show_warning_if_found=[True|False optional]
     ...
 ```
 
@@ -54,7 +54,7 @@ To override put these variables in your main apps `settings.py` file
 `GDPR_MANAGER_REQUIRE_CHECK` <br>
 Default: `True`
 
-Allows you to turn off the very loud check that crashes the server every time it meets a model that doesn't have the GDPR manager setup correctly. 
+Allows you to turn off the very loud check that crashes the server every time it meets a model that doesn't have the GDPR manager setup correctly.
 
 This can be useful when adding to a legacy project, however the errors can also be very useful to make sure you haven't missed anything.
 
@@ -116,7 +116,7 @@ Make sure to follow the `setup.cfg` tab, not the `.toml` one, it will break and 
     dev-worker:
         [if there is a dev-worker, do the same here as above]
     ```
-3. In the `Dockerfile` add the gdpr manager package by copying its files into its own directory and then installing it using a pip local directory install. 
+3. In the `Dockerfile` add the gdpr manager package by copying its files into its own directory and then installing it using a pip local directory install.
 
     The `-e` means editable which allows us to work on the package without reinstalling or rebuilding every time we make a change (its magic!).
 
@@ -146,6 +146,20 @@ Make sure to follow the `setup.cfg` tab, not the `.toml` one, it will break and 
         "gdpr_manager",
     ]
     ```
-6. Build and run the service you are testing with and you should have a live updating package you can test with. 
+6. Build and run the service you are testing with and you should have a live updating package you can test with.
 
     Easiest way to test is to go into the `templates/gdpr_manager/gm_change_list.html` and add some random text and see if it shows up in the admin.
+
+
+### Deploying to PyPi
+
+
+1. Ensure you're listed as a contributing member for the package in Pypi and if you want to do a test deploy in test PyPi as well. They use separate users, so you may need to sign up again. We don't seem to use organisations in PyPi so you need adding to the project directly.
+2. Update the version number in `pyproject.toml` use semantic version as it makes sense, e.g. minor version changes for minor updates
+3. Run `make build` to get a build - you don't need to anything with this version but look in the `dist/` directory to make sure the version and name all look correct.
+4. Run `make test-deploy` this will build and attempt an upload to the test PyPi
+ 1. Before being uploaded it will ask you to enter a token.
+ 2. To generate a token go to https://test.pypi.org/, login -> account settings -> scroll down -> api tokens -> generate a new one with access to the project. If you don't see the project then go back to point 1.
+ 3. Copy the token into the prompt from `make test-deploy`
+ 4. Check test pypi has the updated version.
+5. Run `make deploy` for a production release and follow the same steps as the test but on the proper PyPi.
