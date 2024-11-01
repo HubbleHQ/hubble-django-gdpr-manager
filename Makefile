@@ -26,11 +26,12 @@ dev-test: ## Run the tests. If this fails with a message saying unable to connec
 
 .PHONY: build
 build: # Build the dist package
-	docker compose --profile release run --rm release python -m build
+	rm -r ./dist && docker compose --profile release run --rm release python -m build
 
 .PHONY: test-deploy
 test-deploy: # Deploy dist package to testpypi
-	docker compose --profle release run release python -m twine upload --verbose --repository testpypi dist/*
+	make build
+	docker compose --profile release run release python -m twine upload --verbose --repository testpypi dist/*
 
 .PHONY: help
 help: ## This message
