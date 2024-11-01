@@ -1,3 +1,17 @@
+[project]
+name = "django_gdpr_manager"
+version =" 0.0.1"
+authors = [
+    { name="Hubble", email="developers@hubblehq.com" }
+]
+description = ""
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "django>4.2",
+]
 [build-system]
-requires = ['setuptools>=40.8.0']
-build-backend = 'setuptools.build_meta'
+requires = ['hatchling']
+build-backend = 'hatchling.build'
+
+
