@@ -1,13 +1,13 @@
 from unittest import mock
 
-from django_gdpr_manager.registry import Registry
+from gdpr_manager.registry import Registry
 
 class GDPRManagerMocks:
     def setup_settings_mocks(self, values):
         # Setup setting mocks
         if "GDPR_MANAGER_SEARCH_TYPES" in values:
             settings_gdpr_search_types_patcher = mock.patch(
-                "django_gdpr_manager.settings.GDPR_MANAGER_SEARCH_TYPES",
+                "gdpr_manager.settings.GDPR_MANAGER_SEARCH_TYPES",
                 values.get("GDPR_MANAGER_SEARCH_TYPES"),
             )
             self.mock_settings_gdpr_search_types = (
@@ -17,7 +17,7 @@ class GDPRManagerMocks:
 
         if "GDPR_MANAGER_EXCLUDE"  in values:
             settings_gdpr_manager_require_exclude_patcher = mock.patch(
-                "django_gdpr_manager.settings.GDPR_MANAGER_EXCLUDE",
+                "gdpr_manager.settings.GDPR_MANAGER_EXCLUDE",
                 values.get("GDPR_MANAGER_EXCLUDE"),
             )
 
@@ -28,7 +28,7 @@ class GDPRManagerMocks:
 
         if "GDPR_MANAGER_REQUIRE_CHECK" in values:
             settings_gdpr_manager_require_check_patcher = mock.patch(
-                "django_gdpr_manager.settings.GDPR_MANAGER_REQUIRE_CHECK",
+                "gdpr_manager.settings.GDPR_MANAGER_REQUIRE_CHECK",
                 values.get("GDPR_MANAGER_REQUIRE_CHECK")
             )
             self.mock_gdpr_manager_require_check = (
@@ -47,7 +47,7 @@ class GDPRManagerMocks:
         new_registry = Registry()
 
         registry_mock_patcher = mock.patch(
-            "django_gdpr_manager.handlers.gdpr_registry",
+            "gdpr_manager.handlers.gdpr_registry",
             new_registry
         )
         self.mock_registry = (

@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from django_gdpr_manager.handlers import register_gdpr_model
+from gdpr_manager.handlers import register_gdpr_model
 
 from ..helpers import GDPRManagerMocks
 from ..test_app.models import (

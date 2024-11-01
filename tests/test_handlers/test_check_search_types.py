@@ -2,7 +2,7 @@ from unittest import mock
 
 from django.test import TestCase
 
-from django_gdpr_manager.handlers import check_search_types
+from gdpr_manager.handlers import check_search_types
 
 from ..helpers import GDPRManagerMocks
 from ..test_app.models import (
@@ -22,7 +22,7 @@ class TestModelsCheckSearchTypes(TestCase, GDPRManagerMocks):
 
     def test_errors_if_missing_search_type_field(self):
         with mock.patch(
-            "django_gdpr_manager.settings.GDPR_MANAGER_SEARCH_TYPES",
+            "gdpr_manager.settings.GDPR_MANAGER_SEARCH_TYPES",
             [
                 {"key": "user_id", "verbose_name": "User ID"},
                 {"key": "email", "verbose_name": "Email"},

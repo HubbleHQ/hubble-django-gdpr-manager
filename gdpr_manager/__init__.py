@@ -1,1 +1,1 @@
-default_app_config = "django_gdpr_manager.apps.GdprManagerConfig"
+default_app_config = "gdpr_manager.apps.GdprManagerConfig"
