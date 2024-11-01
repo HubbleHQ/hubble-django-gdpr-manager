@@ -1,7 +1,7 @@
 # Django basic setup
 SECRET_KEY = "fake-key"
 INSTALLED_APPS = [
-    "django_gdpr_manager",
+    "gdpr_manager",
     "tests",
 ]
 DATABASES = {

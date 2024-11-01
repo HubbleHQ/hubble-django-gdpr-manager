@@ -6,7 +6,7 @@ from .handlers import register_gdpr_model
 
 class GdprManagerConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "django_gdpr_manager"
+    name = "gdpr_manager"
     verbose_name = "GDPR Manager"
 
     def __init__(self, *args, **kwargs):
