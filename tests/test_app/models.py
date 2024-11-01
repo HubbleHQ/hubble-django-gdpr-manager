@@ -1,5 +1,5 @@
 from django.db import models
-from gdpr_manager.models import GDPRModel
+from django_gdpr_manager.models import GDPRModel
 
 class ModelWithGDPRMeta(models.Model, GDPRModel):
     """

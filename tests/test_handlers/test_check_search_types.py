@@ -2,7 +2,7 @@ from unittest import mock
 
 from django.test import TestCase
 
-from gdpr_manager.handlers import check_search_types
+from django_gdpr_manager.handlers import check_search_types
 
 from ..helpers import GDPRManagerMocks
 from ..test_app.models import (
@@ -19,10 +19,10 @@ class TestModelsCheckSearchTypes(TestCase, GDPRManagerMocks):
             ]
         })
         self.setup_registry_mocks()
-    
+
     def test_errors_if_missing_search_type_field(self):
         with mock.patch(
-            "gdpr_manager.settings.GDPR_MANAGER_SEARCH_TYPES",
+            "django_gdpr_manager.settings.GDPR_MANAGER_SEARCH_TYPES",
             [
                 {"key": "user_id", "verbose_name": "User ID"},
                 {"key": "email", "verbose_name": "Email"},
@@ -31,7 +31,7 @@ class TestModelsCheckSearchTypes(TestCase, GDPRManagerMocks):
         ):
             with self.assertRaises(Exception) as context:
                 check_search_types(ModelWithGDPRMeta)
-                
+
             self.assertTrue(
                 "Missing required properties in ModelWithGDPRMeta GDPRMeta: "
                 "search_extra-search-type_fields" in str(context.exception)

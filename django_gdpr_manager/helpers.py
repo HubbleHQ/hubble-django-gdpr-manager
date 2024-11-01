@@ -44,7 +44,7 @@ def gdpr_meta_example(missing_keys=None, model_name="ExampleModel"):
 
 
 def gdpr_subclass_example(model_name="ExampleModel", with_meta_example=False):
-    import_example = "from gdpr_manager.models import GDPRModel\n\n"
+    import_example = "from django_gdpr_manager.models import GDPRModel\n\n"
 
     if not with_meta_example:
         return (
