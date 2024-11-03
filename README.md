@@ -8,6 +8,7 @@ Contents
 ----
 - [Quick Start](#quick-start)
 - [Example](#example)
+- [Searching Fields](#searching-fields)
 - [Settings](#settings)
 - [Contributing Guide](#contributing-guide)
     - [Important note on adding packages](#important-note-on-adding-packages)
