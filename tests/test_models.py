@@ -1,10 +1,5 @@
-from unittest import mock
-
 from django.test import TestCase
 
-from gdpr_manager.handlers import check_search_types
-
-from .helpers import GDPRManagerMocks
 from .models import (
     ModelWithSingleFieldsToSearch,
     ModelWithMultipleFieldsToSearch,
@@ -14,9 +9,7 @@ from .models import (
 )
 
 
-class TestGDPRSearch(TestCase, GDPRManagerMocks):
-    def setUp(self):
-        self.setup_registry_mocks()
+class TestGDPRSearch(TestCase):
 
     def test_search_by_a_single_search_type(self):
         """
