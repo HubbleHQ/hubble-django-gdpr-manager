@@ -20,7 +20,11 @@ dev-ssh: ## Open a shell on the current running docker image of pass
 
 .PHONY: dev-test
 dev-test: ## Run the tests. If this fails with a message saying unable to connect … try make dev-stop then rerun this target.
-	docker compose exec dev python runtests.py
+	docker compose exec dev python tests_run.py
+
+.PHONY: dev-test-makemigrations
+dev-test-makemigrations: ## Makes migrations for the tests, without the migrations the tests won't create the tables and will error.
+	docker compose exec dev python tests_makemigrations.py
 
 .PHONY: build
 build: # Build the dist package
