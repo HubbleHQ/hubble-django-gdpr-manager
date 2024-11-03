@@ -76,7 +76,7 @@ class ModelWithMultipleFieldsToSearch(models.Model, GDPRModel):
 
     class GDPRMeta:
         fields = ["email"]
-        search_user_id_fields = ["user_id", "tenant_id"]
+        search_user_id_fields = ["user_id", "host_id"]
         search_email_fields = ["email"]
 
 class ModelWithCustomSearchNotesField(models.Model, GDPRModel):
@@ -91,3 +91,29 @@ class ModelWithCustomSearchNotesField(models.Model, GDPRModel):
         fields = ["email", "notes"]
         search_user_id_fields = ["user_id"]
         search_email_fields = ["email", "notes__icontains"]
+
+class ModelWithShowWarningIfFoundTrue(models.Model, GDPRModel):
+    """
+    Basic model with only simple, single fields to search
+    """
+    email = models.EmailField()
+    user_id = models.IntegerField()
+
+    class GDPRMeta:
+        fields = ["email"]
+        search_user_id_fields = ["user_id"]
+        search_email_fields = ["email"]
+        show_warning_if_found = True
+
+class ModelWithShowWarningIfFoundFalse(models.Model, GDPRModel):
+    """
+    Basic model with only simple, single fields to search
+    """
+    email = models.EmailField()
+    user_id = models.IntegerField()
+
+    class GDPRMeta:
+        fields = ["email"]
+        search_user_id_fields = ["user_id"]
+        search_email_fields = ["email"]
+        show_warning_if_found = False

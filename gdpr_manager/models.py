@@ -33,7 +33,7 @@ class GDPRModel:
             has_warning = getattr(
                 cls.GDPRMeta,
                 "show_warning_if_found",
-                None
+                False
             )
             
         return (results, has_warning)
