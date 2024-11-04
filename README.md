@@ -13,6 +13,7 @@ Contents
 - [Contributing Guide](#contributing-guide)
     - [Important note on adding packages](#important-note-on-adding-packages)
     - [Setup within another project](#setup-within-another-project)
+    - [Deploying to PyPi](#deploying-to-pypi)
 
 Quick start
 -----------
