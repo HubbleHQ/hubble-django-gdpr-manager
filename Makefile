@@ -16,9 +16,9 @@ dev-clean: ## Remove all the docker containers for this project
 	docker compose --profile dev down --rmi local --volumes
 	docker compose --profile release down --rmi local --volumes
 
-.PHONY: dev-ssh
-dev-ssh: ## Open a shell on the current running docker image of pass
-	docker compose --profile dev exec dev zsh
+.PHONY: dev-shell
+dev-shell: ## Open a shell on the current running docker image of pass
+	docker compose --profile dev run --rm --remove-orphans dev zsh
 
 .PHONY: dev-test
 dev-test: ## Run the tests. If this fails with a message saying unable to connect … try make dev-stop then rerun this target.
