@@ -16,16 +16,16 @@ build-backend = 'hatchling.build'
 
 [tool.hatch.build.targets.sdist]
 include = [
-  "*.py",
+  "gdpr_manager/*",
 ]
 exclude = [
-    "tests*"
+  "tests/*",
 ]
 
 [tool.hatch.build.targets.wheel]
 include = [
-    "*.py",
+  "gdpr_manager/*",
 ]
 exclude = [
-    "tests*"
+  "tests/*",
 ]
