@@ -29,7 +29,7 @@ dev-test-makemigrations: ## Makes migrations for the tests, without the migratio
 	docker compose --profile dev run  dev python tests_makemigrations.py
 .PHONY: build
 build: # Build the dist package
-	rm -r ./dist && docker compose --profile release run --rm release python -m build
+	rm -r ./dist; docker compose --profile release run --rm release python -m build
 .PHONY: deploy
 deploy: # Deploy dist package to testpypi
 	make build

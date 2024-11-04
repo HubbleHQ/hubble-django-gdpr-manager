@@ -16,16 +16,16 @@ build-backend = 'hatchling.build'
 
 [tool.hatch.build.targets.sdist]
 include = [
-  "/src",
+  "*",
 ]
 exclude = [
-    "/src/tests"
+    "tests*"
 ]
 
 [tool.hatch.build.targets.wheel]
 include = [
-    "/src",
+    "*",
 ]
 exclude = [
-    "/src/tests"
+    "tests*"
 ]
