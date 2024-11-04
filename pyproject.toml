@@ -1,6 +1,6 @@
 [project]
 name = "hubble_django_gdpr_manager"
-version =" 0.0.2"
+version =" 0.0.3"
 authors = [
     { name="Hubble", email="developers@hubblehq.com" }
 ]
