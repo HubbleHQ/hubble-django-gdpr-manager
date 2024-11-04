@@ -1,5 +1,5 @@
 
-Django GDPR Manager
+Hubble Django GDPR Manager
 =====
 
 Package to handle hubbles GDPR data within Django. At the moment this adds an admin page which allows you to search by key user data to get the information needed.
