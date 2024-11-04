@@ -3,7 +3,7 @@ from django.test import TestCase
 from gdpr_manager.handlers import register_gdpr_model
 
 from ..helpers import GDPRManagerMocks
-from ..test_app.models import (
+from ..models import (
     ModelWithGDPRMeta,
     ModelWithoutGDPRMeta,
     ModelWithoutGDPRSubclass,
@@ -107,7 +107,8 @@ class TestRegisterRequireCheckTrueAndNotExcluded(TestCase, GDPRManagerMocks):
 class TestRegisterExcluded(TestCase, GDPRManagerMocks):
     def setUp(self):
         self.setup_settings_mocks({
-            "GDPR_MANAGER_EXCLUDE": ["tests"]
+            "GDPR_MANAGER_EXCLUDE": ["tests"],
+            "GDPR_MANAGER_REQUIRE_CHECK": True
         })
         self.setup_registry_mocks()
 

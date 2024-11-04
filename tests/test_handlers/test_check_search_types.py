@@ -5,18 +5,19 @@ from django.test import TestCase
 from gdpr_manager.handlers import check_search_types
 
 from ..helpers import GDPRManagerMocks
-from ..test_app.models import (
+from ..models import (
     ModelWithGDPRMeta
 )
 
 
-class TestModelsCheckSearchTypes(TestCase, GDPRManagerMocks):
+class TestCheckSearchTypes(TestCase, GDPRManagerMocks):
     def setUp(self):
         self.setup_settings_mocks({
             "GDPR_MANAGER_SEARCH_TYPES": [
                 {"key": "user_id", "verbose_name": "User ID"},
                 {"key": "email", "verbose_name": "Email"},
-            ]
+            ],
+            "GDPR_MANAGER_REQUIRE_CHECK": True
         })
         self.setup_registry_mocks()
 

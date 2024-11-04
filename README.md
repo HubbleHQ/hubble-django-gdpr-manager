@@ -8,6 +8,7 @@ Contents
 ----
 - [Quick Start](#quick-start)
 - [Example](#example)
+- [Searching Fields](#searching-fields)
 - [Settings](#settings)
 - [Contributing Guide](#contributing-guide)
     - [Important note on adding packages](#important-note-on-adding-packages)
@@ -45,6 +46,20 @@ class ExampleModel(models.Model, GDPRModel):
         """
         show_warning_if_found=[True|False optional]
     ...
+```
+
+Searching Fields
+----------
+By default all searches are done by appending `__iexact` to the field name when searching so `email` becomes `email__iexact`.
+
+If you want to do a custom search using another [field lookup](https://docs.djangoproject.com/en/5.1/ref/models/querysets/#field-lookups) then when you add the field name you can add the field lookup to the field name.
+```python
+# Here it will return any notes fields with the email somewhere in it
+search_email_fields=['email', 'notes__icontains']
+
+# Eventual query builder
+query.add(Q(email_iexact=email), Q.OR)
+query.add(Q(notes__icontains=email). Q.OR)
 ```
 
 Settings
