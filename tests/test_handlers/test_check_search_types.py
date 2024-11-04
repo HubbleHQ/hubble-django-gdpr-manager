@@ -20,7 +20,7 @@ class TestCheckSearchTypes(TestCase, GDPRManagerMocks):
             "GDPR_MANAGER_REQUIRE_CHECK": True
         })
         self.setup_registry_mocks()
-    
+
     def test_errors_if_missing_search_type_field(self):
         with mock.patch(
             "gdpr_manager.settings.GDPR_MANAGER_SEARCH_TYPES",
@@ -32,7 +32,7 @@ class TestCheckSearchTypes(TestCase, GDPRManagerMocks):
         ):
             with self.assertRaises(Exception) as context:
                 check_search_types(ModelWithGDPRMeta)
-                
+
             self.assertTrue(
                 "Missing required properties in ModelWithGDPRMeta GDPRMeta: "
                 "search_extra-search-type_fields" in str(context.exception)

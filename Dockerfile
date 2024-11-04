@@ -28,10 +28,9 @@ RUN apk add --no-cache \
 
 FROM deps-dev AS dev
 COPY . .
-# Keeps it open until you close it, dunno why but makes my brain happier
-# Technically don't need this you could just shell in.
-ENTRYPOINT ["tail", "-f", "/dev/null"] 
 
+FROM deps-dev as release
+COPY . .
 # Set the default target. This way, if we run `docker build` without specifying
 # a target, it will build the dev image. NOTE: this _must_ be the last
 # line in the file.

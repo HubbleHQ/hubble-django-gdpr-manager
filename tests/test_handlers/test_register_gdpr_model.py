@@ -114,7 +114,7 @@ class TestRegisterExcluded(TestCase, GDPRManagerMocks):
 
     def test_does_not_error_if_model_has_no_gdpr_meta_but_is_excluded(self):
         """
-        Shouldn't error if the app the model is contained in is excluded, even if 
+        Shouldn't error if the app the model is contained in is excluded, even if
         they are missing the GDPRMeta class.
         """
         try:
@@ -124,7 +124,7 @@ class TestRegisterExcluded(TestCase, GDPRManagerMocks):
 
     def test_does_not_error_if_model_has_no_gdpr_subclass_but_is_excluded(self):
         """
-        Shouldn't error if the app the model is contained in is excluded, even if 
+        Shouldn't error if the app the model is contained in is excluded, even if
         they are missing the GDPR subclass.
         """
         try:
@@ -134,7 +134,7 @@ class TestRegisterExcluded(TestCase, GDPRManagerMocks):
 
     def test_does_not_error_if_model_has_no_gdpr_subclass_or_meta_but_is_excluded(self):
         """
-        Shouldn't error if the app the model is contained in is excluded, even if it is 
+        Shouldn't error if the app the model is contained in is excluded, even if it is
         missing both the GDPR subclass and the GDPRMeta.
         """
         try:

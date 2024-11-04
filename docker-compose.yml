@@ -4,9 +4,21 @@ services:
         build:
             target: dev # NOTE: this is the "stage" in the Dockerfile
             context: .
+        profiles:
+          - dev
         stdin_open: true
         tty: true
         volumes:
             - .:/src
             # Mount empty volume in venv to ignore
             - /src/venv/
+    release:
+      build:
+        target: release
+      profiles:
+        - release
+      stdin_open: true
+      tty: true
+      volumes:
+        - .:/src
+        - /src/venv

@@ -41,7 +41,7 @@ class GDPRManagerMocks:
         The registry needs to be mocked for every test as it is a singleton
         and will explode in much unhappiness otherwise
 
-        If there are admin tests it will also need to be mocked in here as 
+        If there are admin tests it will also need to be mocked in here as
         admin talks directly to the registry as well
         """
         new_registry = Registry()
