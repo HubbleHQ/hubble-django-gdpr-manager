@@ -163,6 +163,44 @@ class TestGDPRSearch(TestCase):
         (results, has_warning) = ModelWithSingleFieldsToSearch.gdpr_search(email="test@test.com")
         self.assertFalse(has_warning)
 
+    def test_ignore_searches_with_empty_values(self):
+        """
+        If an empty value is passed to a search with an icontains it returns all
+        results, we want to ignore empty values so nothing returns.
+        """
+        ModelWithCustomSearchNotesField.objects.create(
+            email="somerandom@email.com",
+            user_id=74821,
+            notes=(
+                "These are some notes of a very boring kind with\n",
+                "an email somewhere in here MOHAHAHA\n"
+                "banana@fridge.com is the email\n"
+                "let us keep it hidden so noone can find it!"
+            )
+        )
+        ModelWithCustomSearchNotesField.objects.create(
+            email="someotherrandom@email.com",
+            user_id=92893,
+            notes=(
+                "This is another very boring note with lovely\n",
+                "email addresses in it:baNaNa@fridge.com0783928\n"
+                "lets try even harder to hide that email!"
+            )
+        )
+        ModelWithCustomSearchNotesField.objects.create(
+            email="ainteresting@email.com",
+            user_id=81839,
+            notes=(
+                "This a very interesting note with with a\n",
+                "decoy email address in it! banana@fridge-hammer.com0783928\n"
+                "I love to try and confuse people as much as I can!"
+            )
+        )
+
+        (results, has_warning) = ModelWithCustomSearchNotesField.gdpr_search(user_id="81839", email="")
+        self.assertEqual(len(results), 1)
+
+
 class TestGDPRSearchFieldQuery(TestCase, GDPRManagerMocks):
     """
     Right now gdpr_search_field_query
