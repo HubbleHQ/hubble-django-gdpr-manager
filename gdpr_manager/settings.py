@@ -12,8 +12,16 @@ GDPR_MANAGER_SEARCH_TYPES = getattr(
     settings,
     "GDPR_MANAGER_SEARCH_TYPES",
     [
-        {"key": "user_id", "verbose_name": "User ID"},
-        {"key": "email", "verbose_name": "Email"},
+        {
+            "key": "user_id", 
+            "verbose_name": "User ID",
+            "default_lookup": "exact"
+        },
+        {
+            "key": "email",
+            "verbose_name": "Email",
+            "default_lookup": "iexact"
+        },
     ],
 )
 

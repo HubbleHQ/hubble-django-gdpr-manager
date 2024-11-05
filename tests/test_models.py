@@ -5,8 +5,9 @@ from .models import (
     ModelWithMultipleFieldsToSearch,
     ModelWithCustomSearchNotesField,
     ModelWithShowWarningIfFoundTrue,
-    ModelWithShowWarningIfFoundFalse
+    ModelWithShowWarningIfFoundFalse,
 )
+from .helpers import GDPRManagerMocks
 
 
 class TestGDPRSearch(TestCase):
@@ -161,3 +162,63 @@ class TestGDPRSearch(TestCase):
         ModelWithSingleFieldsToSearch.objects.create(email="test@test.come", user_id=143)
         (results, has_warning) = ModelWithSingleFieldsToSearch.gdpr_search(email="test@test.com")
         self.assertFalse(has_warning)
+
+class TestGDPRSearchFieldQuery(TestCase, GDPRManagerMocks):
+    """
+    Right now gdpr_search_field_query
+    does not actually use any cls properties so having the right
+    settings or correctly setup model is irrelevant.
+
+    I am using ModelWithSingleFieldsToSearch here but it could be
+    any and the search fields do not correspond.
+
+    Its a method on the class so that it can be overridden if required.
+    """
+    def setUp(self):
+        self.search_type_exact = {
+            "key": "user_id", 
+            "verbose_name": "User ID",
+            "default_lookup": "exact"
+        }
+
+        self.search_type_no_default_lookup = {
+            "key": "phone_number",
+            "verbose_name": "phonenumber",
+        }
+
+    def test_uses_default_lookup_if_no_override(self):
+        field_query = ModelWithSingleFieldsToSearch.gdpr_search_field_query(
+            field_name="user_id",
+            value="1234",
+            search_type=self.search_type_exact
+        )
+
+        self.assertEqual(
+            field_query,
+            {"user_id__exact": "1234"}
+        )
+
+    
+    def test_uses_iexact_if_no_default_lookup_or_override(self):
+        field_query = ModelWithSingleFieldsToSearch.gdpr_search_field_query(
+            field_name="regional_phone_number",
+            value="789271783",
+            search_type=self.search_type_no_default_lookup
+        )
+
+        self.assertEqual(
+            field_query,
+            {"regional_phone_number__iexact": "789271783"}
+        )
+
+    def test_uses_ignores_default_lookup_if_override_set(self):
+        field_query = ModelWithSingleFieldsToSearch.gdpr_search_field_query(
+            field_name="regional_phone_number__icontains",
+            value="78927",
+            search_type=self.search_type_exact
+        )
+
+        self.assertEqual(
+            field_query,
+            {"regional_phone_number__icontains": "78927"}
+        )

@@ -7,7 +7,6 @@ from .helpers import gdpr_subclass_example, gdpr_meta_example
 from .models import GDPRModel
 from . import settings
 
-
 def check_search_types(model):
     # Throw errors if gdpr meta fields are missing, aim is to
     # explain what should be there clearly

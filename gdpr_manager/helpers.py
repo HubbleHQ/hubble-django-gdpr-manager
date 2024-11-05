@@ -1,5 +1,22 @@
+import logging
+
 from . import settings
 
+logger = logging.getLogger(__name__)
+
+
+def get_search_type_definition(key):
+    for search_type in settings.GDPR_MANAGER_SEARCH_TYPES:
+        if search_type["key"] is key:
+            return search_type
+        
+def search_type_definition_not_found(key, model):
+    return logger.warning(
+        f"search_{key}_fields was defined on {model}"
+        f" {key} was not found in search types.\n"
+        f"Add to {key} to GDPR_MANAGER_SEARCH_TYPES or the search"
+        f" will not work."
+    )
 
 def gdpr_meta_example(missing_keys=None, model_name="ExampleModel"):
     exception_key_example = []

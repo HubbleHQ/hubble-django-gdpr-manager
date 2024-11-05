@@ -51,7 +51,7 @@ class ExampleModel(models.Model, GDPRModel):
 
 Searching Fields
 ----------
-By default all searches are done by appending `__iexact` to the field name when searching so `email` becomes `email__iexact`.
+By default all searches are done by using the `default_lookup` value defined in [GDPR_MANAGER_SEARCH_TYPES](#settings). The `default_lookup` is then appended to the field name when searching so `email` becomes `email__iexact` for example.
 
 If you want to do a custom search using another [field lookup](https://docs.djangoproject.com/en/5.1/ref/models/querysets/#field-lookups) then when you add the field name you can add the field lookup to the field name.
 ```python
@@ -92,12 +92,24 @@ Allows you to exclude specific models from being checked and managed by the GDPR
 Default:
 ```
 [
-    {"key": "user_id", "verbose_name": "User ID"},
-    {"key": "email", "verbose_name": "Email"},
+    {
+        "key": "user_id", 
+        "verbose_name": "User ID",
+        "default_lookup": "exact"
+    },
+    {
+        "key": "email",
+        "verbose_name": "Email",
+        "default_lookup": "iexact"
+    },
 ]
 ```
 
 A way of managing the fields that can be searched on the admin page. In most cases `user_id` and `email` is enough but organisation id for example might need searching (pass).
+
+The default lookup relates to the [field lookup](https://docs.djangoproject.com/en/5.1/ref/models/querysets/#field-lookups) the search uses. If none is set it will default to `iexact`.
+
+NOTE: `iexact` cannot be used on foreign key searches for example thus the option to do an exact search.
 
 `GDPR_MANAGER_EXCLUDE_DEFAULT` <br>
 Default:
