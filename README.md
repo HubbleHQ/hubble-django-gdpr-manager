@@ -127,7 +127,7 @@ Make sure to follow the `setup.cfg` tab, not the `.toml` one, it will break and 
         build:
             ...
             additional_contexts:
-                - gdpr_manager=~/local/path/django-gdpr-manager
+                - gdpr_manager=~/local/path/hubble-django-gdpr-manager
         ...
     dev-worker:
         [if there is a dev-worker, do the same here as above]
@@ -138,21 +138,21 @@ Make sure to follow the `setup.cfg` tab, not the `.toml` one, it will break and 
 
     ```Dockerfile
     # Create directory not in /src to copy the package to
-    RUN mkdir /django-gdpr-manager
+    RUN mkdir /hubble-django-gdpr-manager
     # Copy the package from the additional context we setup before into the container
-    COPY --from=gdpr_manager . /django-gdpr-manager
+    COPY --from=gdpr_manager . /hubble-django-gdpr-manager
     # Install the local package with the editable flag
-    RUN python -m pip install -e /django-gdpr-manager
+    RUN python -m pip install -e /hubble-django-gdpr-manager
     ```
 
-4. In `docker-compose.common.yml` add the `/django-gdpr-manager` we created in the container to our local folder so it can update as we edit it.
+4. In `docker-compose.common.yml` add the `/hubble-django-gdpr-manager` we created in the container to our local folder so it can update as we edit it.
     ```yaml
     services:
         [service_name]_base:
             ...
             volumes:
                 ...
-                - ~/local/path/django-gdpr-manager:/django-gdpr-manager
+                - ~/local/path/hubble-django-gdpr-manager:/django-gdpr-manager
             ...
     ```
 5. Add "gdpr_manager" to your INSTALLED_APPS setting like this:
