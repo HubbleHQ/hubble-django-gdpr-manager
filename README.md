@@ -83,6 +83,11 @@ Allows you to exclude django apps from being checked and managed by the GDPR man
 
 You would need a very good reason to exclude an app we manage from the GDPR manager.
 
+`GDPR_MANAGER_EXCLUDE_MODELS` <br>
+Default: `[]`
+
+Allows you to exclude specific models from being checked and managed by the GDPR manager. This is very beneficial when it comes to join tables that we do not control being created, but you do not want to exclude the whole app.
+
 `GDPR_MANAGER_SEARCH_TYPES` <br>
 Default:
 ```

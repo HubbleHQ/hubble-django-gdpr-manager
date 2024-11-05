@@ -151,6 +151,59 @@ class TestRegisterExcluded(TestCase, GDPRManagerMocks):
         self.assertNotIn(str(ModelWithGDPRMeta._meta), self.mock_registry.models)
 
 
+class TestRegisterExcludedTables(TestCase, GDPRManagerMocks):
+    def setUp(self):
+        self.setup_settings_mocks({
+            "GDPR_MANAGER_EXCLUDE": [],
+            "GDPR_MANAGER_EXCLUDE_MODELS": [
+                "ModelWithoutGDPRMeta",
+                "ModelWithoutGDPRSubclass",
+                "ModelWithoutGDPRSubclassOrMeta",
+                "ModelWithGDPRMeta"
+            ],
+            "GDPR_MANAGER_REQUIRE_CHECK": True
+        })
+        self.setup_registry_mocks()
+
+    def test_does_not_error_if_model_has_no_gdpr_meta_but_model_is_excluded(self):
+        """
+        Shouldn't error if the models table excluded, even if
+        they are missing the GDPRMeta class.
+        """
+        try:
+            register_gdpr_model(ModelWithoutGDPRMeta)
+        except Exception:
+            self.fail("Should not fail if model has been excluded")
+
+    def test_does_not_error_if_model_has_no_gdpr_subclass_but_model_is_excluded(self):
+        """
+        Shouldn't error if the app the model is contained in is excluded, even if
+        they are missing the GDPR subclass.
+        """
+        try:
+            register_gdpr_model(ModelWithoutGDPRSubclass)
+        except Exception:
+            self.fail("Should not fail if model has been excluded")
+
+    def test_does_not_error_if_model_has_no_gdpr_subclass_or_meta_but_model_is_excluded(self):
+        """
+        Shouldn't error if the app the model is contained in is excluded, even if it is
+        missing both the GDPR subclass and the GDPRMeta.
+        """
+        try:
+            register_gdpr_model(ModelWithoutGDPRSubclassOrMeta)
+        except Exception:
+            self.fail("Should not fail if model has been excluded")
+
+    def test_does_not_register_model_if_has_meta_and_subclass_but_model_is_excluded(self):
+        """
+        Shouldn't register the model if the app it is contained in is excluded, even if
+        it has been setup correctly with the GDPRModel subclass and GDPRMeta.
+        """
+        register_gdpr_model(ModelWithGDPRMeta)
+        self.assertNotIn(str(ModelWithGDPRMeta._meta), self.mock_registry.models)
+
+
 class TestRegisterRequireCheckFalse(TestCase, GDPRManagerMocks):
     def setUp(self):
         self.setup_settings_mocks({

@@ -26,6 +26,17 @@ class GDPRManagerMocks:
             )
             self.addCleanup(settings_gdpr_manager_require_exclude_patcher.stop)
 
+        if "GDPR_MANAGER_EXCLUDE_MODELS"  in values:
+            settings_gdpr_manager_require_exclude_models_patcher = mock.patch(
+                "gdpr_manager.settings.GDPR_MANAGER_EXCLUDE_MODELS",
+                values.get("GDPR_MANAGER_EXCLUDE_MODELS"),
+            )
+
+            self.mock_gdpr_manager_require_exclude_models = (
+                settings_gdpr_manager_require_exclude_models_patcher.start()
+            )
+            self.addCleanup(settings_gdpr_manager_require_exclude_models_patcher.stop)
+
         if "GDPR_MANAGER_REQUIRE_CHECK" in values:
             settings_gdpr_manager_require_check_patcher = mock.patch(
                 "gdpr_manager.settings.GDPR_MANAGER_REQUIRE_CHECK",

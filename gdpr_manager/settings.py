@@ -21,8 +21,14 @@ GDPR_MANAGER_EXCLUDE = GDPR_MANAGER_EXCLUDE_DEFAULT + (
     getattr(
         settings,
         "GDPR_MANAGER_EXCLUDE",
-        [],
+        []
     )
+)
+
+GDPR_MANAGER_EXCLUDE_MODELS = getattr(
+    settings,
+    "GDPR_MANAGER_EXCLUDE_MODELS",
+    []
 )
 
 GDPR_MANAGER_REQUIRE_CHECK = getattr(

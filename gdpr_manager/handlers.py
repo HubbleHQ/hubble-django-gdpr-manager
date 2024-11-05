@@ -36,7 +36,10 @@ def register_gdpr_model(sender, **kwargs):
     # 3rd party apps we want to exclude from the model require.
     app_name = sender.__module__.split(".")[0]
 
-    if app_name in settings.GDPR_MANAGER_EXCLUDE:
+    if (
+        app_name in settings.GDPR_MANAGER_EXCLUDE 
+        or sender.__name__ in settings.GDPR_MANAGER_EXCLUDE_MODELS
+    ):
         return
 
     is_subclass = issubclass(sender, GDPRModel)
