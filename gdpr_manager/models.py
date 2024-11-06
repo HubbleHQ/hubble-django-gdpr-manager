@@ -20,7 +20,7 @@ class GDPRModel:
         for key, value in search_data.items():
             if not value:
                 # Breaks icontains lookup if you search an empty value
-                break
+                continue
 
             search_fields = getattr(cls.GDPRMeta, f"search_{key}_fields")
             search_type_def = get_search_type_definition(key)
