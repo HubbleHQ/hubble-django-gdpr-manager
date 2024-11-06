@@ -197,7 +197,10 @@ class TestGDPRSearch(TestCase):
             )
         )
 
-        (results, has_warning) = ModelWithCustomSearchNotesField.gdpr_search(user_id="81839", email="")
+        (results, has_warning) = ModelWithCustomSearchNotesField.gdpr_search(
+            user_id="",
+            email="ainteresting@email.com"
+        )
         self.assertEqual(len(results), 1)
 
 
