@@ -66,6 +66,7 @@ class GDPRManagerAdmin(admin.ModelAdmin):
                 {
                     "model": model,
                     "results": model_results,
+                    "count": len(model_results),
                     "app_label": model._meta.app_label,
                     "name": model._meta.verbose_name,
                     "content_type": ContentType.objects.get_for_model(model),
